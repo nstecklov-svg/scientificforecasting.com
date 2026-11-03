@@ -22,7 +22,12 @@ nav .links a { margin-left: 16px; }
 nav .links a:first-child { margin-left: 0; }
 .button { display: inline-block; border: 1px solid #111; padding: 8px 16px; text-decoration: none; margin: 8px 0 0; }
 .button:hover { background: #111; color: #fff; }
-.example { border: 1px solid #ddd; padding: 16px; margin: 8px 0 12px; }
+.slider { display: flex; align-items: stretch; gap: 8px; margin: 8px 0 12px; }
+.slider button { font: inherit; font-size: 20px; background: none; border: none; color: #555; cursor: pointer; padding: 0 4px; }
+.slider button:hover { color: #111; }
+.window { overflow: hidden; flex: 1; }
+.track { display: flex; transition: transform 0.6s ease; }
+.example { flex: 0 0 100%; box-sizing: border-box; border: 1px solid #ddd; padding: 16px; }
 .example p { margin: 0 0 6px; }
 .example .q { font-weight: bold; margin-bottom: 12px; }
 footer { margin-top: 64px; padding-top: 12px; border-top: 1px solid #ddd; font-size: 14px; color: #555; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
@@ -44,7 +49,12 @@ footer { margin-top: 64px; padding-top: 12px; border-top: 1px solid #ddd; font-s
 <p><a class="button" href="#">Join the waitlist</a></p>
 
 <h2 id="forecasts">Example forecasts</h2>
-<div id="examples"><div class="example"><p class="q">Will Putin hold a bilateral meeting with Alexander Lukashenko in Turkmenistan?</p><p>Our forecast (Oct 10, 2026): 2%</p><p>Prediction market at the time: 42%</p><p>Result: No</p></div><div class="example" hidden><p class="q">Will OpenAI resume US ChatGPT Pro signups by September 30, 2026?</p><p>Our forecast (Sep 30, 2026): 96%</p><p>Prediction market at the time: 22%</p><p>Result: Yes</p></div><div class="example" hidden><p class="q">Iran charges Hormuz fees by September 30?</p><p>Our forecast (Sep 29, 2026): 1%</p><p>Prediction market at the time: 21%</p><p>Result: No</p></div><div class="example" hidden><p class="q">Will Renan Santos finish in third place in the first round of the 2026 Brazilian presidential election?</p><p>Our forecast (Oct 2, 2026): 25%</p><p>Prediction market at the time: 62%</p><p>Result: No</p></div><div class="example" hidden><p class="q">Next US-Iran senior diplomatic meeting by September 30, 2026?</p><p>Our forecast (Sep 27, 2026): 18%</p><p>Prediction market at the time: 36%</p><p>Result: No</p></div><div class="example" hidden><p class="q">Gemini 4.0 released by September 30, 2026?</p><p>Our forecast (Sep 30, 2026): 1%</p><p>Prediction market at the time: 8%</p><p>Result: No</p></div><p class="small">A few of our live forecasts.</p></div>
+<div class="slider">
+<button id="prev" aria-label="Previous example">&lsaquo;</button>
+<div class="window"><div class="track" id="track"><div class="example"><p class="q">Iran charges Hormuz fees by September 30?</p><p>Our forecast (Sep 29, 2026): 1%</p><p>Prediction market at the time: 21%</p><p>Result: No</p></div><div class="example"><p class="q">Saudi Oil Pipeline (East-West) restarts by October 31?</p><p>Our forecast (Sep 27, 2026): 66%</p><p>Prediction market at the time: 63%</p><p>Result: Yes</p></div><div class="example"><p class="q">US x Iran ceasefire continues through October 7?</p><p>Our forecast (Oct 1, 2026): 92%</p><p>Prediction market at the time: 88%</p><p>Result: Yes</p></div><div class="example"><p class="q">Will the US announce a diesel export ban by September 30?</p><p>Our forecast (Sep 26, 2026): 4%</p><p>Prediction market at the time: 4%</p><p>Result: No</p></div><div class="example"><p class="q">Next US-Iran senior diplomatic meeting by September 30, 2026?</p><p>Our forecast (Sep 27, 2026): 18%</p><p>Prediction market at the time: 36%</p><p>Result: No</p></div><div class="example"><p class="q">Will Luiz Inácio Lula da Silva qualify for Brazil&#x27;s presidential runoff?</p><p>Our forecast (Sep 27, 2026): 97%</p><p>Prediction market at the time: 96%</p><p>Result: Yes</p></div></div></div>
+<button id="next" aria-label="Next example">&rsaquo;</button>
+</div>
+<p class="small">A tiny sample of the thousands of questions our model has forecast.</p>
 
 <h2>How SFC forecasts</h2>
 <p><b>Beyond the headlines.</b></p>
@@ -77,12 +87,16 @@ Covers politics, economics, and world events.</p>
 
 </main>
 <script>
-var boxes = document.querySelectorAll("#examples .example"), shown = 0;
-setInterval(function () {
-  boxes[shown].hidden = true;
-  shown = (shown + 1) % boxes.length;
-  boxes[shown].hidden = false;
-}, 10000);
+var track = document.getElementById("track"), count = track.children.length, shown = 0, timer;
+function go(step) {
+  shown = (shown + step + count) % count;
+  track.style.transform = "translateX(-" + shown * 100 + "%)";
+  clearInterval(timer);
+  timer = setInterval(function () { go(1); }, 10000);
+}
+document.getElementById("prev").onclick = function () { go(-1); };
+document.getElementById("next").onclick = function () { go(1); };
+go(0);
 </script>
 </body>
 </html>
