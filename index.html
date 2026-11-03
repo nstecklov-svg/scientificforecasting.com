@@ -39,12 +39,12 @@ footer { margin-top: 64px; padding-top: 12px; border-top: 1px solid #ddd; font-s
 <h1 id="top">Scientific Forecasting Company (SFC)</h1>
 <p class="tagline">Predicting future world events to better understand what to do now.</p>
 
-<p>Using smaller open-source models fine-tuned with LoRA, we aim to give people, institutions, and governments accurate predictions that benefit everyone.</p>
+<p>Using smaller open-source models fine-tuned with LoRA, we aim to give people, institutions, and governments accurate predictions that benefit everyone.</p><p>Accurate predictions can be incredibly valuable to companies and governments, giving them real probabilities to build expected value and expected utility models around.</p>
 
 <p><a class="button" href="#">Join the waitlist</a></p>
 
-<h2 id="forecasts">Example forecast</h2>
-<div class="example"><p class="q">Will Putin hold a bilateral meeting with Alexander Lukashenko in Turkmenistan?</p><p>Our forecast (Oct 10, 2026): 2%</p><p>Prediction market at the time: 42%</p><p>Result: No</p></div><p class="small">One of our live forecasts.</p>
+<h2 id="forecasts">Example forecasts</h2>
+<div id="examples"><div class="example"><p class="q">Will Putin hold a bilateral meeting with Alexander Lukashenko in Turkmenistan?</p><p>Our forecast (Oct 10, 2026): 2%</p><p>Prediction market at the time: 42%</p><p>Result: No</p></div><div class="example" hidden><p class="q">Will OpenAI resume US ChatGPT Pro signups by September 30, 2026?</p><p>Our forecast (Sep 30, 2026): 96%</p><p>Prediction market at the time: 22%</p><p>Result: Yes</p></div><div class="example" hidden><p class="q">Iran charges Hormuz fees by September 30?</p><p>Our forecast (Sep 29, 2026): 1%</p><p>Prediction market at the time: 21%</p><p>Result: No</p></div><div class="example" hidden><p class="q">Will Renan Santos finish in third place in the first round of the 2026 Brazilian presidential election?</p><p>Our forecast (Oct 2, 2026): 25%</p><p>Prediction market at the time: 62%</p><p>Result: No</p></div><div class="example" hidden><p class="q">Next US-Iran senior diplomatic meeting by September 30, 2026?</p><p>Our forecast (Sep 27, 2026): 18%</p><p>Prediction market at the time: 36%</p><p>Result: No</p></div><div class="example" hidden><p class="q">Gemini 4.0 released by September 30, 2026?</p><p>Our forecast (Sep 30, 2026): 1%</p><p>Prediction market at the time: 8%</p><p>Result: No</p></div><p class="small">A few of our live forecasts.</p></div>
 
 <h2>How SFC forecasts</h2>
 <p><b>Beyond the headlines.</b></p>
@@ -58,7 +58,7 @@ footer { margin-top: 64px; padding-top: 12px; border-top: 1px solid #ddd; font-s
 <p>14B parameters in our model.<br>
 ~10,000 questions to train on.<br>
 ~1,000 H100 GPU hours of training.<br>
-~6 weeks of nonstop training on a single GPU.<br>
+~6 weeks of training.<br>
 ~40,000 practice forecasts written and scored.<br>
 ~200,000 news articles read during training.<br>
 Covers politics, economics, and world events.</p>
@@ -76,5 +76,13 @@ Covers politics, economics, and world events.</p>
 <footer><span>© 2026 Scientific Forecasting Company (SFC)</span><span></span></footer>
 
 </main>
+<script>
+var boxes = document.querySelectorAll("#examples .example"), shown = 0;
+setInterval(function () {
+  boxes[shown].hidden = true;
+  shown = (shown + 1) % boxes.length;
+  boxes[shown].hidden = false;
+}, 10000);
+</script>
 </body>
 </html>
